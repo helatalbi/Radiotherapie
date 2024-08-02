@@ -44,26 +44,6 @@ services:
     networks:
       - mynetwork
 
-  prometheus:
-    image: prom/prometheus
-    volumes:
-      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
-    ports:
-      - "9090:9090"
-    depends_on:
-      - backend
-    networks:
-      - mynetwork
-
-  grafana:
-    image: grafana/grafana
-    ports:
-      - "3000:3000"
-    depends_on:
-      - prometheus
-    networks:
-      - mynetwork
-
 networks:
   mynetwork:
     driver: bridge
