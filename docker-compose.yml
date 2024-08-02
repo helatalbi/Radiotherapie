@@ -38,9 +38,29 @@ services:
       PMA_HOST: db
       PMA_PORT: 3306
       PMA_USER: root
-      PMA_PASSWORD: root
+      PMA_PASSWORD: "root"
     ports:
       - "8085:80"
+    networks:
+      - mynetwork
+
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    depends_on:
+      - backend
+    networks:
+      - mynetwork
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
     networks:
       - mynetwork
 
