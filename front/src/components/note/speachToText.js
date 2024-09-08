@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import axios from "axios";
 import "./Notes.css";
 
 function SpeechToText({ userData }) {
@@ -11,19 +10,7 @@ function SpeechToText({ userData }) {
   const recognitionRef = useRef(null);
   const fileInputRef = useRef(null);
 
-  useEffect(() => {
-    async function fetchReport() {
-      try {
-        const response = await axios.get(
-          `http://localhost:4001/notes/getAll/${userData.id}`
-        );
-        setRecognizedText(response.data.contenuRapport);
-      } catch (erreur) {
-        console.error("Erreur lors de la récupération du rapport :", erreur);
-      }
-    }
-    fetchReport();
-  }, []);
+  
   useEffect(() => {
     //Vérification de la Disponibilité de l'API=>Cela vérifie si le navigateur supporte webkitSpeechRecognition.
     if ("webkitSpeechRecognition" in window) {
@@ -62,24 +49,7 @@ function SpeechToText({ userData }) {
     }
   };
 
-  const handleSubmit = async () => {
-    const rapportData = {
-      typeRapport: "vocale",
-      contenuRapport: recognizedText,
-    };
-
-    try {
-      const response = await axios.post(
-        "http://localhost:4001/notes/creer",
-        rapportData
-      );
-      console.log("Note envoyé avec succès :", response.data);
-      alert("Note envoyé avec succès");
-    } catch (error) {
-      console.error("Erreur lors de l'envoi du Note :", error);
-      alert("Erreur lors de l'envoi du Note");
-    }
-  };
+ 
   const handleFileSelect = (event) => {
     const selectedFiles = Array.from(event.target.files);
     setFiles(selectedFiles);

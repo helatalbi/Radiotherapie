@@ -39,10 +39,20 @@ import DiscussionBetweenTwoItem from "./components/Discussion/DiscussionBetweenT
 import Signin from "./components/user/signin";
 import Messages from "./components/chat/Messages";
 import Notes from "./components/note/notes";
+import FileViewer from "./components/note/FileViewer";
+
 import Statistique from "./components/statistique/statistique";
 import Calendrier from "./components/calendrier";
+import Form from "./components/form";
+
 
 export const RecoveryContext = createContext();
+const formSchema = {
+  type: 'default',
+  components: [
+   
+  ]
+};
 
 function App() {
   const isLoggedIn = localStorage.getItem("token");
@@ -102,7 +112,8 @@ function App() {
             ) : (
               <Navigate to="/signin" />
             )}
-            <Route path="/dashboard" element={<Dashboard />} />
+<Route path="/form" element={<Form schema={formSchema} />} />
+<Route path="/dashboard" element={<Dashboard />} />
             <Route path="/patients" element={<Patients />} />
             <Route path="/leftBar" element={<LeftBar />} />
             <Route path="/signupUser" element={<SignupUser />} />
@@ -119,6 +130,8 @@ function App() {
             <Route path="/Calendrier" element={<Calendrier />} />
 
             <Route path="/Calendar" element={<Calendar />} />
+            <Route path="/FileViewer" element={<FileViewer />} />
+
 
             <Route
               path="/ListCentreTraitement"

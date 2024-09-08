@@ -1112,3 +1112,120 @@ exports.countPatientsByDosimetrieStatus = async (req, res) => {
       .json({ error: "Internal Server Error", details: error.message });
   }
 };
+exports.countPatientsByValidationStatus = async (req, res) => {
+  try {
+    const waitingCount = await Patient.count({
+      include: [
+        {
+          model: Traitement,
+          required: true,
+          include: [
+            {
+              model: Dosimetrie,
+              required: true,
+              where: { etat: true },
+            },
+          ],
+          where: {
+            validationId: null,
+          },
+        },
+      ],
+    });
+
+    // Count patients with completed validation (validation state is true)
+    const completedCount = await Patient.count({
+      include: [
+        {
+          model: Traitement,
+          required: true,
+          include: [
+            {
+              model: Validation,
+              required: true,
+              where: { etat: true },
+            },
+          ],
+        },
+      ],
+    });
+
+    res.json({
+      waitingCount,
+      completedCount,
+    });
+  } catch (error) {
+    console.error("Error counting patients by validation status:", error);
+    res
+      .status(500)
+      .json({ error: "Internal Server Error", details: error.message });
+  }
+};
+
+exports.countPatientsByQualiteStatus = async (req, res) => {
+  try {
+   
+
+    // Count patients with completed qualite (qualite state is true)
+    const completedCount = await Patient.count({
+      include: [
+        {
+          model: Traitement,
+          required: true,
+          include: [
+            {
+              model: Qualite,
+              required: true,
+              where: { etat: true },
+            },
+          ],
+        },
+      ],
+    });
+
+    res.json({
+      completedCount,
+    });
+  } catch (error) {
+    console.error("Error counting patients by qualite status:", error);
+    res
+      .status(500)
+      .json({ error: "Internal Server Error", details: error.message });
+  }
+};
+exports.updatePatient = async (req, res) => {
+  try {
+    const patientId = req.params.id;
+    const { nom, prenom, dateNaissance, sexe, mail, numTel, autres, adresse, DMI, Cin, securiteSociale, nationalite } = req.body;
+
+    // Trouver le patient par ID
+    const patient = await Patient.findByPk(patientId);
+
+    if (!patient) {
+      return res.status(404).json({ message: "Patient non trouvé" });
+    }
+
+    // Mettre à jour les champs du patient
+    patient.nom = nom || patient.nom;
+    patient.prenom = prenom || patient.prenom;
+    patient.dateNaissance = dateNaissance || patient.dateNaissance;
+    patient.sexe = sexe || patient.sexe;
+    patient.mail = mail || patient.mail;
+    patient.numTel = numTel || patient.numTel;
+    patient.autres = autres || patient.autres;
+    patient.adresse = adresse || patient.adresse;
+    patient.DMI = DMI || patient.DMI;
+    patient.Cin = Cin || patient.Cin;
+    patient.securiteSociale = securiteSociale || patient.securiteSociale;
+    patient.nationalite = nationalite || patient.nationalite;
+
+    // Sauvegarder les modifications
+    await patient.save();
+
+    res.status(200).json({ message: "Patient mis à jour avec succès", patient });
+  } catch (error) {
+    console.error("Erreur lors de la mise à jour du patient:", error);
+    res.status(500).json({ message: "Erreur interne du serveur" });
+  }
+};
+

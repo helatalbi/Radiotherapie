@@ -140,7 +140,8 @@
     display: flex; /* Aligns children (title and input) inline */
     align-items: center; /* Vertically center the items in the container */
     gap: 8px; /* Optional: Adds some space between the title and the input */
-    margin-left: 50px;
+    margin-left: 100px;
+    margin-top: 50px;
   }
   .inputtitreNote {
     width: 800px;
@@ -288,7 +289,7 @@
     justify-content: center;
     background-color: rgb(244, 244, 250);
     margin-left: 40px;
-    margin-top: -140px;
+    margin-top: -60px;
   }
   
   .bouttonListening:hover {
@@ -296,36 +297,48 @@
   }
   
 
-  
-  /* Style pour la zone de texte reconnue */
-  .rapportspeachtotext {
-    width: 800px;
-    height: 300px;
-    padding: 10px;
-    line-height: 28px;
-    padding: 0 1rem;
-     border: 2px solid transparent;
-    border-radius: 15px;
-    outline: none;
-    background-color: #dcebfd;
-    color: #0d0c22;
-    transition: 0.3s ease;padding-left: 2.5rem;
-    margin-bottom: 20px;
-    overflow-y: auto; /* Ajout de défilement vertical si nécessaire */
-  }
- 
-  
-  .rapportspeachtotext::placeholder {
-    color: #9e9ea7;
-  }
-  
-  .rapportspeachtotext:focus,
-  .rapportspeachtotext:hover {
-    outline: none;
-    border-color: rgba(247, 127, 0, 0.4);
-    background-color: #fff;
-    box-shadow: 0 0 0 4px rgb(247 127 0 / 10%);
-  }
+/* Style pour la zone de texte reconnue */
+.rapportspeachtotext {
+  width: 100%; /* Utiliser 100% pour s'assurer que la largeur est flexible */
+  max-width: 800px; /* Limite la largeur à 800px */
+  height: 100px;
+  padding: 10px;
+  line-height: 28px;
+  padding: 0 1rem;
+  border: 2px solid transparent;
+  border-radius: 15px;
+  outline: none;
+  background-color: #dcebfd;
+  color: #0d0c22;
+  transition: 0.3s ease;
+  padding-left: 2.5rem;
+  margin-bottom: 20px;
+  overflow-y: auto; /* Défilement vertical uniquement */
+  word-wrap: break-word; /* Permet aux mots de se casser */
+  overflow-wrap: break-word; /* Pour plus de compatibilité */
+  box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur totale */
+}
+
+/* Optionnel: Style pour le texte à l'intérieur du div */
+.rapportspeachtotext span {
+  display: inline-block; /* Assure que le texte s'ajuste correctement */
+  max-width: 100%; /* Limite la largeur du texte à celle du conteneur */
+  box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur totale */
+}
+
+.rapportspeachtotext::placeholder {
+  color: #9e9ea7;
+}
+
+.rapportspeachtotext:focus,
+.rapportspeachtotext:hover {
+  outline: none;
+  border-color: rgba(247, 127, 0, 0.4);
+  background-color: #fff;
+  box-shadow: 0 0 0 4px rgb(247 127 0 / 10%);
+}
+
+
   
   .ajouterNote {
     font-family: inherit;
@@ -604,4 +617,107 @@ max-height: 150px;
     transition: all .9s ease-in-out;
     background-size: 100%;
   }
-  
+  /* From Uiverse.io by andrew-demchenk0 */ 
+.buttonNote {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 12px 8px 16px;
+  gap: 8px;
+  height: 40px;
+  width: 200px;
+  border: none;
+  background: #056bfa27;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-left: 1400px;
+  margin-top: 50px;
+}
+
+.lableNote {
+  margin-top: 1px;
+  font-size: 19px;
+  line-height: 22px;
+  color: #056DFA;
+  font-family: sans-serif;
+  letter-spacing: 1px;
+}
+
+.buttonNote:hover {
+  background: #056bfa49;
+}
+
+.buttonNote:hover .svg-icon {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  25% {
+    transform: rotate(-8deg);
+  }
+
+  50% {
+    transform: rotate(0deg);
+  }
+
+  75% {
+    transform: rotate(8deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.containerNoteFile {
+  display: flex;
+  scroll-snap-type: x mandatory;
+  width: 90%;
+  margin: 0 auto;
+  padding: 0 15px;
+  overflow-x: auto; /* Permet le scroll horizontal */
+  margin-top: -35px;
+  margin-bottom: 40px;
+  margin-left: 85px;
+
+}
+
+.cardNoteFile {
+  background: rgba(63, 137, 235, 0.25);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  border-radius: 10px;
+  padding: 2rem;
+  margin: 1rem;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.containerNoteFile:hover > :not(:hover) {
+  opacity: 0.2;
+}
+
+.addFileNote {
+  flex: 1;
+  width: 100%;
+  border: 2px dashed royalblue;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.addFileNote svg {
+  height: 100px;
+}
+
+.addFileNote p {
+  text-align: center;
+  color: black;
+}

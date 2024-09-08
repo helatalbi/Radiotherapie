@@ -9,8 +9,6 @@ import advancedFormat from "dayjs/plugin/advancedFormat";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import "dayjs/locale/fr";
 
-import "../../style/adresseUser.css";
-
 // Extend dayjs with required plugins
 dayjs.extend(advancedFormat);
 dayjs.extend(localizedFormat);
@@ -20,8 +18,9 @@ function NoteTime({ closeModal, onNoteTimeSelect }) {
   const [selectedDate, setSelectedDate] = useState(dayjs());
 
   const handleValidate = () => {
-    const fullTime = selectedDate.format("DD/MM/YYYY HH:mm");
-    onNoteTimeSelect(fullTime);
+    // Format the date as 'YYYY-MM-DDTHH:mm' for `datetime-local`
+    const formattedDate = selectedDate.format("YYYY-MM-DDTHH:mm");
+    onNoteTimeSelect(formattedDate);
     closeModal();
   };
 

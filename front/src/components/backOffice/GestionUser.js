@@ -6,6 +6,8 @@ import "./style/gestionUser.css";
 import SupprimerUser from "./supprimerUser";
 import Modal from "react-modal";
 import axios from "axios";
+import NotificationList from "./notificationList";
+
 
 function GestionUser() {
   const [users, setUsers] = useState([]);
@@ -244,6 +246,15 @@ function GestionUser() {
       }}
     >
       <LeftBar />
+      <div
+        style={{
+          position: "absolute", // Absolutely position this div inside the parent
+          right: 20, // 20px from the right edge of the viewport
+          bottom: 20, // 20px from the bottom edge of the viewport
+        }}
+      >
+        <NotificationList />
+      </div>
       <div className="tableauUsers">
         <DataGrid
           rows={users}

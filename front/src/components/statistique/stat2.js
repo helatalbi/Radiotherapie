@@ -113,6 +113,21 @@ function Stat2() {
           waitingCount: dosimetrieWaitingCount,
           completedCount: dosimetrieCompletedCount,
         } = dosimetrieStatusResponse.data;
+ // Fetch the counts of waiting and completed patients for validation
+ const validationStatusResponse = await axios.get(
+  "http://localhost:4001/patients/validation-status-count"
+);
+const {
+  waitingCount: validationWaitingCount,
+  completedCount: validationCompletedCount,
+} = validationStatusResponse.data;
+// Fetch the counts of waiting and completed patients for qualite
+const qualiteStatusResponse = await axios.get(
+  "http://localhost:4001/patients/qualite-status-count"
+);
+const {
+  completedCount: qualiteCompletedCount,
+} = qualiteStatusResponse.data;
 
         // Update data for the chart
         setData({
@@ -126,6 +141,7 @@ function Stat2() {
                 importationWaitingCount,
                 contourageWaitingCount,
                 dosimetrieWaitingCount,
+                validationWaitingCount,
                 ...new Array(labels.length - 5).fill(0),
               ],
               backgroundColor: "rgba(255, 136, 0, 0.5)",
@@ -138,6 +154,8 @@ function Stat2() {
                 importationCompletedCount,
                 contourageCompletedCount,
                 dosimetrieCompletedCount,
+                validationCompletedCount,
+                qualiteCompletedCount,
                 ...new Array(labels.length - 5).fill(0),
               ],
               backgroundColor: "rgba(53, 162, 235, 0.5)",

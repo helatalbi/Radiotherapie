@@ -4,6 +4,7 @@ import LeftBar from "./leftBar";
 import backoffice from "../../assets/images/backoffice.png";
 import "./style/gestionUser.css";
 import SupprimerPatient from "./supprimerPatient";
+import ModifierPatient from "./modifierPatient";
 import Modal from "react-modal";
 import axios from "axios";
 
@@ -16,6 +17,7 @@ function GestionPatient() {
   const [selectedModal, setSelectedModal] = useState(null);
 
   const openModalSupprimerPatient = (modalType, patientId) => {
+    console.log(modalType, patientId);
     setSelectedModal(modalType);
     setSelectedPatientId(patientId);
     setModalIsOpen(true);
@@ -26,6 +28,19 @@ function GestionPatient() {
     setSelectedPatientId(null);
     setModalIsOpen(false);
   };
+  const openModalModifierPatient = (modalType, patientId) => {
+    console.log(modalType, patientId);
+    setSelectedModal(modalType);
+    setSelectedPatientId(patientId);
+    setModalIsOpen(true);
+  };
+
+  const closeModalModifierPatient = () => {
+    setSelectedModal(null);
+    setSelectedPatientId(null);
+    setModalIsOpen(false);
+  };
+
 
   useEffect(() => {
     // Fonction pour récupérer les Patients
@@ -52,42 +67,14 @@ function GestionPatient() {
   }, []);
 
   const columns = [
-    { field: "DMI", headerName: "DMI", width: 150 },
-    {
-      field: "fullName",
-      headerName: "Nom et Prénom",
-      width: 200,
-      valueGetter: (params) => `${params.row.nom} ${params.row.prenom}`,
-    },
-    {
-      field: "dateNaissance",
-      headerName: "Date de Naissance",
-      width: 150,
-      valueGetter: (params) => {
-        const date = new Date(params.row.dateNaissance);
-        const day = date.getDate();
-        const month = date.getMonth() + 1;
-        const year = date.getFullYear();
-        return `${day < 10 ? "0" + day : day}/${
-          month < 10 ? "0" + month : month
-        }/${year}`;
-      },
-    },
-    { field: "sexe", headerName: "Sexe", width: 90 },
-    { field: "mail", headerName: "Email", width: 200 },
-    { field: "securiteSociale", headerName: "Sécurité Sociale", width: 200 },
-    { field: "numTel", headerName: "Téléphone", width: 150 },
-    { field: "adresse", headerName: "Adresse", width: 200 },
-    { field: "Cin", headerName: "CIN", width: 150 },
-    { field: "nationalite", headerName: "Nationalité", width: 150 },
-    { field: "autres", headerName: "Autres Informations", width: 200 },
-
     {
       field: "Edit",
       headerName: "",
       width: 80,
       renderCell: (params) => (
-        <button class="buttonEdit">
+        <button class="buttonEdit"   onClick={() =>
+          openModalModifierPatient("modifierPatient", params.row.id)
+        }>
           <svg
             class="svg-icon"
             fill="none"
@@ -192,6 +179,37 @@ function GestionPatient() {
         </button>
       ),
     },
+    { field: "DMI", headerName: "DMI", width: 150 },
+    {
+      field: "fullName",
+      headerName: "Nom et Prénom",
+      width: 200,
+      valueGetter: (params) => `${params.row.nom} ${params.row.prenom}`,
+    },
+    {
+      field: "dateNaissance",
+      headerName: "Date de Naissance",
+      width: 150,
+      valueGetter: (params) => {
+        const date = new Date(params.row.dateNaissance);
+        const day = date.getDate();
+        const month = date.getMonth() + 1;
+        const year = date.getFullYear();
+        return `${day < 10 ? "0" + day : day}/${
+          month < 10 ? "0" + month : month
+        }/${year}`;
+      },
+    },
+    { field: "sexe", headerName: "Sexe", width: 90 },
+    { field: "mail", headerName: "Email", width: 200 },
+    { field: "securiteSociale", headerName: "Sécurité Sociale", width: 200 },
+    { field: "numTel", headerName: "Téléphone", width: 150 },
+    { field: "adresse", headerName: "Adresse", width: 200 },
+    { field: "Cin", headerName: "CIN", width: 150 },
+    { field: "nationalite", headerName: "Nationalité", width: 150 },
+    { field: "autres", headerName: "Autres Informations", width: 200 },
+
+  
   ];
 
   return (
@@ -225,7 +243,19 @@ function GestionPatient() {
       >
         <SupprimerPatient
           closeModal={closeModalSupprimerPatient}
-          userId={selectedPatientId}
+          patientId={selectedPatientId}
+        />
+      </Modal>
+      <Modal
+        isOpen={modalIsOpen && selectedModal === "modifierPatient"}
+        onRequestClose={closeModalModifierPatient}
+        contentLabel="modifierPatient Modal"
+        className="custom-modal"
+        overlayClassName="custom-overlay"
+      >
+        <ModifierPatient
+          closeModal={closeModalModifierPatient}
+          patientId={selectedPatientId}
         />
       </Modal>
     </div>

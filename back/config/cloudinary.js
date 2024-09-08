@@ -1,11 +1,8 @@
 // config/cloudinary.js
-const cloudinary = require('cloudinary').v2;
+const cloudinary = require('cloudinary');
 
-// Configure Cloudinary using the object configuration method          
-cloudinary.config({ 
-  cloud_name: 'dbxkvrsyc', 
-  api_key: '925631888622694', 
-  api_secret: 'Pf5mHKUXXxajdAQnjFexxFNFBF8' 
+cloudinary.v2.config({
+  cloud_name: 'dh3co0nj3', 
+  api_key: '427651133419167', 
+  api_secret: 'ymc1eOdevnWvpap28KjwbUna8Ig'
 });
-
-module.exports = cloudinary;

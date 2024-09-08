@@ -43,7 +43,7 @@ function Messageries() {
           }}
         >
           <Content>
-            <div className="flex gap-2" style={{ height: "750px" }}>
+            <div className="flex gap-2" style={{ height: "750px"  }}>
               <div className="basis-1/4 bg-blue-100 rounded-lg p-2">
                 <SideBarDiscussion />
               </div>

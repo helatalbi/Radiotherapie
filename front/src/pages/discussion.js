@@ -4,6 +4,8 @@ import { Outlet, useLocation } from "react-router-dom";
 import Nav from "../components/nav";
 import { Layout, theme } from "antd";
 import msg from "../assets/images/imagemsg.png";
+import Chatbot from "../components/chatbot/chatbot"
+
 const { Content } = Layout;
 
 const Discussions = () => {
@@ -17,6 +19,8 @@ const Discussions = () => {
   return (
     <Layout style={{ height: "100vh", width: "100vw" }}>
       <Nav />
+      <Chatbot />
+
       <div
         style={{
           marginTop: 80,

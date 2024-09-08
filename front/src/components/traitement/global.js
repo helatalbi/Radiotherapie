@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Layout, theme } from "antd";
 import Tableau from "./tableau";
 import Nav from "../nav";
+import Chatbot from "../chatbot/chatbot"
 
 const { Content } = Layout;
 
@@ -32,6 +33,7 @@ const Global = () => {
           <Tableau></Tableau>
         </Content>
       </div>
+      <Chatbot />
     </Layout>
   );
 };

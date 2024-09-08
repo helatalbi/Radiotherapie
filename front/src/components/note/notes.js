@@ -4,6 +4,7 @@ import "./Notes.css";
 import { Layout, theme } from "antd";
 import NoteNew from "./noteNew";
 import CalendrierNote from "./calendrierNote";
+import Chatbot from "../chatbot/chatbot"
 
 const { Content } = Layout;
 
@@ -13,16 +14,28 @@ function Notes() {
   } = theme.useToken();
 
   return (
-    <div>
-      <Nav />
+   
+     <Layout style={{ height: "82vh", width: "100vw" }}>
+     <Nav></Nav>
 
-      <div style={{ marginTop: -750, marginLeft: 20 }}>
-        <NoteNew />
-      </div>
-      <div style={{ marginLeft: 1030, marginTop: -600 }}>
-        <CalendrierNote />
-      </div>
-    </div>
+     <div style={{ marginTop: 50 }}>
+       <Content
+         style={{
+           margin: "24px 16px",
+           padding: 24,
+           background: colorBgContainer,
+           borderRadius: borderRadiusLG,
+           height: "100%", // Assurez-vous que Content occupe toute la hauteur disponible
+           top: "-10px",
+         }}
+       >
+         <Chatbot />
+         <div style={{ width: 1200}}>
+         <CalendrierNote />
+         </div>
+       </Content>
+     </div>
+   </Layout>
   );
 }
 

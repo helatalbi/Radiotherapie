@@ -84,15 +84,39 @@ function Calendrier({ traitementId }) {
       try {
         const updatedData = {
           newDate: newRescheduleDate,
-          remarque: remarque, // Pass the updated remark
+          remarque: remarque,
+          reporte: true, // Marque comme reportée
         };
+        
+        // Mise à jour côté serveur
         const response = await axios.put(
           `http://localhost:4001/seances/reschedule/${selectedEvent.id}`,
           updatedData
         );
         console.log("Reschedule success:", response.data);
-        closeRescheduleModal(); // Close the modal on success
-        fetchTraitementDetails(); // Refresh data to reflect changes
+  
+        // Mettre à jour l'événement reporté dans l'état
+        setEvents((prevEvents) =>
+          prevEvents.map((event) =>
+            event.id === selectedEvent.id
+              ? { ...event, reporte: true, remarque: remarque }
+              : event
+          )
+        );
+  
+        // Ajouter un nouvel événement à la nouvelle date
+        const newEvent = {
+          ...selectedEvent,
+          id: selectedEvent.id + "_rescheduled", // ID unique pour le nouvel événement
+          start: new Date(newRescheduleDate),
+          end: new Date(newRescheduleDate),
+          reporte: false, // Ce nouvel événement n'est pas reporté
+        };
+  
+        setEvents((prevEvents) => [...prevEvents, newEvent]);
+  
+        closeRescheduleModal(); // Fermer la modal
+        setSelectedEvent(null); // Réinitialiser l'événement sélectionné
       } catch (error) {
         console.error("Error rescheduling seance:", error);
         alert(
@@ -101,7 +125,7 @@ function Calendrier({ traitementId }) {
       }
     }
   };
-
+  
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {

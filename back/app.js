@@ -31,9 +31,9 @@ const multer = require("multer");
 
 // Configurer Cloudinary
 cloudinary.config({
-  cloud_name: "dbxkvrsyc",
-  api_key: "925631888622694",
-  api_secret: "Pf5mHKUXXxajdAQnjFexxFNFBF8",
+  cloud_name: 'dh3co0nj3', 
+  api_key: '427651133419167', 
+  api_secret: 'ymc1eOdevnWvpap28KjwbUna8Ig'
 });
 
 // Configurer le stockage multer pour Cloudinary

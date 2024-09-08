@@ -10,28 +10,25 @@ function SupprimerPatient({ closeModal, patientId }) {
 
   const supprimerPatient = async () => {
     try {
+
       // Retrieve the token from local storage
       const token = localStorage.getItem("token");
+      console.log("ID du patient:", patientId);
 
-      // Configure axios to include the token in the request headers
-      const config = {
+      // Configure axios to send the delete request
+      await axios.delete(`http://localhost:4001/patients/deletePatient/${patientId}`, {
         headers: {
-          Authorization: `${token}`,
+          Authorization: ` ${token}`,
         },
-      };
+      });
 
-      // Sending a DELETE request to the backend to delete the user
-      await axios.delete(
-        `http://localhost:4001/users/deletePatient/${patientId}`,
-        config
-      );
-
-      // Close the modal after successful deletion
+      // Close the modal and refresh the page or fetch patients again to reflect the deletion
       closeModal();
-      window.location.reload();
+      window.location.reload(); // Refresh the page (or trigger a fetch if you prefer to update the UI without a reload)
     } catch (error) {
-      setError("Une erreur s'est produite lors de la suppression du Patient.");
-    }
+      setError("Erreur lors de la suppression du patient.");
+      console.error("Erreur:", error);
+    } 
   };
 
   return (
@@ -54,8 +51,8 @@ function SupprimerPatient({ closeModal, patientId }) {
             Vous êtes sûr ?
           </h2>
           <p className="font-bold text-sm text-gray-500 px-2">
-            Vous pouvez vraiment supprimer ce patient ? <br></br>Ce processus ne
-            peut pas être annulé.
+            Vous pouvez vraiment supprimer ce patient ? <br></br>Ce
+            processus ne peut pas être annulé.
           </p>
         </div>
         <div className="p-2 mt-2 text-center space-x-1 md:block">

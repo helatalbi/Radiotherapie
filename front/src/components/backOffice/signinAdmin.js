@@ -39,7 +39,7 @@ function SigninAdmin() {
       localStorage.setItem("user", id);
 
       // Navigate to desired route
-      navigate("/DashboardAdmin");
+      navigate("/Statistiques");
     } catch (error) {
       setError("Identifiants invalides. Veuillez réessayer.");
       console.error("Connection error:", error.response.data);

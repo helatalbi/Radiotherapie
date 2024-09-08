@@ -1,3 +1,4 @@
+//models/note.js
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
 
@@ -16,6 +17,7 @@ const Note = sequelize.define("note", {
     type: DataTypes.STRING,
     allowNull: true,
   },
+
   rappel: {
     type: DataTypes.DATE,
     allowNull: true,
